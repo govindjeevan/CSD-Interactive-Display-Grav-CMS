@@ -1,0 +1,13 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+	<div id="error">
+		<div>
+			<h1>{{ 'ERROR'|t }} {{ page.header.http_response_code }}</h1>
+			<p>
+				{{ page.content }}
+			</p>
+			<p>Try one of the following links:</p><br/>
+		</div>
+	</div>
+{% endblock %}

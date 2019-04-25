@@ -1,0 +1,542 @@
+/** Variables **/
+/** Mixins **/
+/** Animations **/
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0.1;
+  }
+}
+/** Page Setup **/
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #ffffff;
+  transition: background-color 0.4s;
+}
+body.image-view {
+  background-color: #000000;
+}
+
+#main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+/** Layout **/
+#header {
+  height: 0;
+}
+
+#content {
+  box-sizing: border-box;
+  width: 1024px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  position: relative;
+  clear: both;
+  height: 550px;
+}
+#content.border {
+  border: 1px solid black;
+}
+#content li {
+  margin: 10px 10px 10px 30px;
+}
+#content .page-title {
+  font-family: "Patua One", cursive;
+  position: absolute;
+  top: -35px;
+  color: black;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+#content .page-title.vcenter {
+  top: 0;
+}
+#content .post {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 40px;
+  overflow-y: auto;
+  height: 100%;
+  background: white;
+  border: 1px solid black;
+}
+#content .post h1, #content .post h2, #content .post h3, #content .post h4, #content .post h5, #content .post h6 {
+  margin: 15px 0 10px 0;
+  color: black;
+}
+#content .post p {
+  margin-bottom: 10px;
+}
+#content .post p:last-of-type {
+  margin-bottom: 60px;
+}
+#content .post strong {
+  font-weight: 600;
+}
+#content .post.with-tags {
+  padding-top: 0 !important;
+}
+#content .post.left {
+  width: 66.666%;
+}
+#content .right-picture {
+  box-sizing: border-box;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  width: 33.334%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  transition: background-color 0.4s, width 0.4s;
+  border-style: solid;
+  border-width: 1px 1px 1px 0;
+  border-color: black;
+}
+#content .right-picture.fullsize {
+  width: 100%;
+  height: 118%;
+  background-color: #000000;
+  background-size: contain;
+}
+#content .categories {
+  height: 30px;
+}
+#content .categories .category a {
+  padding: 6px 10px;
+  font-size: 0.8em;
+  margin: 0;
+  position: relative;
+  top: 2px;
+  background: black;
+  color: white;
+  text-decoration: none;
+}
+#content .links {
+  display: table;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 66.666%;
+  box-sizing: border-box;
+  background: white;
+  overflow: hidden;
+  padding: 10px;
+  table-layout: fixed;
+  text-align: center;
+  text-transform: uppercase;
+  border-left: 1px solid black;
+  border-collapse: collapse;
+}
+#content .links li {
+  display: table-cell;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+}
+#content .links a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+#content .grid {
+  width: 1024px;
+  margin: 0 auto;
+  height: 100%;
+  box-sizing: border-box;
+  clear: both;
+  overflow: auto;
+}
+#content .grid.vcenter {
+  height: auto;
+  transform: translateY(50%);
+}
+#content .grid .entry {
+  display: block;
+  width: 33.3333333333%;
+  float: left;
+  height: 275px;
+  overflow: hidden;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: white;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#content .grid .entry h1, #content .grid .entry h2, #content .grid .entry h3, #content .grid .entry h4, #content .grid .entry h5, #content .grid .entry h6, #content .grid .entry p {
+  text-align: center;
+}
+#content .grid .entry .info {
+  margin-top: 110px;
+}
+#content .grid .entry .title {
+  text-transform: uppercase;
+  border-bottom: 1px solid white;
+  font-weight: 700;
+  letter-spacing: -2px;
+  text-shadow: 3px 2px 5px rgba(0, 0, 0, 0.5);
+}
+#content .grid .entry .tags {
+  padding-top: 5px;
+  font-size: 0.8em;
+}
+#content .grid .entry .image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(1.4);
+  opacity: 0.1;
+  animation-name: zoomOut;
+  animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#content .grid .entry .image:hover {
+  transform: scale(1);
+  opacity: 1;
+}
+#content .grid .entry:last-of-type {
+  margin-right: 0 !important;
+}
+#content .pagination {
+  font-size: 3.3em;
+  text-decoration: none;
+  color: black;
+  font-weight: 800;
+  position: absolute;
+  transition: transform 0.5s;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+}
+#content .pagination.next {
+  position: absolute;
+  right: -60px;
+  top: 43.5%;
+}
+#content .pagination.prev {
+  position: absolute;
+  left: -60px;
+  top: 43.5%;
+}
+#content .pagination:hover {
+  transform: scale(0.9);
+}
+#content .pagination.image-viewer {
+  color: white;
+}
+
+#menu {
+  width: 1024px;
+  margin: 0 auto;
+  position: relative;
+}
+#menu .navigation {
+  list-style: none;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  font-family: "Patua One", cursive;
+}
+#menu .nav-item {
+  font-weight: 600;
+  background: transparent;
+  transition: transform 0.5s, background 0.3s;
+  display: table-cell;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+#menu .nav-item:first-of-type {
+  border-left: 0;
+}
+#menu .nav-item:last-of-type {
+  border-right: 0;
+}
+#menu .nav-item a {
+  box-sizing: border-box;
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  font-size: 2.2em;
+  line-height: 75px;
+  height: 80px;
+  transition: color 0.3s;
+  background: white;
+  border: 2px solid black;
+}
+#menu .nav-item a:hover {
+  background: black;
+  color: white;
+}
+#menu .nav-item.selected a {
+  background: black !important;
+  color: white !important;
+}
+#menu .nav-item:last-of-type {
+  margin-right: 0px !important;
+}
+#menu .line {
+  width: 100%;
+  height: 3px;
+  background: black;
+  position: relative;
+  top: -40px;
+  z-index: -10;
+}
+
+#footer {
+  width: 100%;
+  clear: both;
+  text-align: center;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.mobile-pagination {
+  padding: 10px;
+  background: white;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  color: black;
+  text-transform: uppercase;
+  margin-top: 10px;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: black;
+  display: none;
+}
+
+@media screen and (max-width: 530px), screen and (max-height: 415px) {
+  #menu .navigation .nav-item a {
+    font-size: 1em !important;
+    letter-spacing: 0px;
+    height: auto !important;
+    line-height: 50px !important;
+  }
+
+  #footer {
+    margin-bottom: 64px;
+  }
+
+  #content {
+    width: 100% !important;
+  }
+  #content .grid {
+    width: 100% !important;
+  }
+  #content .grid.vcenter {
+    transform: none;
+  }
+  #content .post {
+    border: none;
+  }
+  #content .post.left {
+    padding: 0 14px !important;
+  }
+  #content .post p:last-of-type {
+    margin-bottom: 20px;
+  }
+  #content .right-picture {
+    box-shadow: none;
+  }
+
+  .pagination {
+    display: none;
+  }
+
+  .mobile-pagination {
+    display: block;
+  }
+}
+@media screen and (max-width: 360px) {
+  #menu .navigation .nav-item a {
+    font-size: 0.8em !important;
+  }
+}
+@media screen and (max-height: 740px) {
+  #footer {
+    padding-bottom: 0 !important;
+  }
+
+  #content {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    height: 500px;
+    width: 800px;
+  }
+
+  #menu {
+    width: 800px;
+  }
+  #menu .nav-item a {
+    font-size: 1.6em;
+  }
+
+  .grid {
+    width: 800px !important;
+  }
+
+  .entry {
+    height: 250px !important;
+  }
+  .entry .info {
+    margin-top: 95px !important;
+  }
+}
+@media screen and (max-width: 1023px) {
+  #main {
+    position: relative !important;
+    transform: none !important;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+
+  #footer, #menu, .post, .entry, .links {
+    width: 100% !important;
+  }
+
+  .grid {
+    width: 80% !important;
+  }
+
+  #content {
+    width: 80%;
+  }
+
+  .grid.vcenter {
+    transform: none !important;
+  }
+
+  .entry {
+    height: 200px !important;
+  }
+  .entry .info {
+    margin-top: 60px !important;
+  }
+  .entry:hover {
+    transform: none !important;
+  }
+
+  #content {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    border: none !important;
+    height: auto !important;
+    padding-bottom: 60px;
+  }
+  #content .page-title {
+    font-family: "Patua One", cursive;
+    position: relative;
+    width: 100%;
+    top: 0;
+    padding: 15px;
+    text-transform: uppercase;
+  }
+  #content .post {
+    padding: 10px 20px 20px 20px !important;
+    height: auto !important;
+    overflow: hidden !important;
+  }
+  #content .post.with-tags {
+    height: auto !important;
+  }
+  #content .pagination {
+    position: fixed !important;
+  }
+  #content .pagination.next {
+    right: 15px !important;
+    top: 39.5% !important;
+  }
+  #content .pagination.prev {
+    left: 15px !important;
+    top: 39.5% !important;
+  }
+  #content.fullheight {
+    position: static !important;
+  }
+
+  .categories {
+    left: 20px !important;
+  }
+
+  .right-picture {
+    height: 200px !important;
+    width: 100% !important;
+    position: static !important;
+  }
+  .right-picture.fullsize {
+    height: 100% !important;
+    position: absolute !important;
+  }
+
+  #menu .navigation {
+    position: fixed;
+    bottom: 0;
+    border-top: 3px solid;
+  }
+  #menu .navigation .nav-item {
+    width: 100% !important;
+    height: auto !important;
+    border: 0 !important;
+  }
+  #menu .navigation .nav-item a {
+    box-shadow: none;
+    border: 0 !important;
+    font-size: 1.75em;
+  }
+  #menu .line {
+    visibility: hidden;
+  }
+
+  .links {
+    position: static !important;
+    border-bottom: 1px solid black;
+    margin-bottom: 15px;
+  }
+
+  #footer {
+    margin-bottom: 80px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

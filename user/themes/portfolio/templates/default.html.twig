@@ -1,0 +1,21 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block javascripts %}
+	{% do assets.addJs('theme://js/theme.js') %}
+{% endblock %}
+
+{% block content %}
+<div id="content">
+
+	{% set image = page.media.images|first %}
+
+	<div class="post{% if image %} left{% endif %}">
+		{{ page.content }}
+	</div>
+
+	{% if image %}
+		<div class="right-picture" style="background-image:url('{{ image.url }}')"></div>
+	{% endif %}
+
+</div>
+{% endblock %}
