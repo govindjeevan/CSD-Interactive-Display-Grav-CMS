@@ -1,0 +1,19 @@
+1556944414
+a:2:{s:7:"content";s:696:"<h1>Error: Invalid Frontmatter</h1>
+<p>Path: <code>C:/xampp/htdocs/grav/user/pages/11.gallery/default.md</code></p>
+<p><strong>Failed to read C:/xampp/htdocs/grav/user/pages/11.gallery/default.md: Unable to parse at line 9 (near "<div class="modular-row gallery-container {{ page.header.class }}">").</strong></p>
+<pre><code>---
+title: GALLERY
+date: '05:40 13-04-2019'
+primaryImage:
+    user/pages/11.gallery/gallery.png:
+        name: gallery.png
+        type: image/png
+        size: 1751
+        path: user/pages/11.gallery/gallery.png
+&lt;div class="modular-row gallery-container {{ page.header.class }}"&gt;
+    {{ unite_gallery(page.media.images) }}
+&lt;/div&gt;
+---
+
+# GALLERY</code></pre>";s:12:"content_meta";N;}

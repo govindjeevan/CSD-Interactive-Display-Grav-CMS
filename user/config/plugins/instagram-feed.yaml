@@ -1,0 +1,5 @@
+enabled: true
+route: /
+instagram_feed:
+  count: '10'
+  username: csd_nitk

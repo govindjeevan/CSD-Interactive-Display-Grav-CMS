@@ -1,0 +1,66 @@
+1556946159
+a:2:{s:7:"content";s:1698:"<h1>Error: Invalid Frontmatter</h1>
+<p>Path: <code>C:/xampp/htdocs/grav/user/pages/11.gallery/form.md</code></p>
+<p><strong>Failed to read C:/xampp/htdocs/grav/user/pages/11.gallery/form.md: A YAML file cannot contain tabs as indentation at line 54 (near "  to:").</strong></p>
+<pre><code>---
+title: GALLERY
+date: '05:40 13-04-2019'
+primaryImage:
+    user/pages/11.gallery/gallery.png:
+        name: gallery.png
+        type: image/png
+        size: 1751
+        path: user/pages/11.gallery/gallery.png
+
+title: Contact Form
+
+form:
+    name: contact
+
+    fields:
+        name:
+          label: Name
+          placeholder: Enter your name
+          autocomplete: on
+          type: text
+          validate:
+            required: true
+
+        email:
+          label: Email
+          placeholder: Enter your email address
+          type: email
+          validate:
+            required: true
+
+        message:
+          label: Message
+          placeholder: Enter your message
+          type: textarea
+          validate:
+            required: true
+
+    buttons:
+        submit:
+          type: submit
+          value: Submit
+        reset:
+          type: reset
+          value: Reset
+
+    process:
+        save:
+            fileprefix: contact-
+            dateformat: Ymd-His-u
+            extension: txt
+            body: "{% include 'forms/data.txt.twig' %}"
+        email:
+            to:
+              - "{{ config.plugins.email.from }}"
+              - "{{ form.value.email }}"
+            subject: "[Site Contact Form] {{ form.value.name|e }}"
+            body: "{% include 'forms/data.html.twig' %}"
+        message: Thank you for getting in touch!
+        display: thankyou
+---
+</code></pre>";s:12:"content_meta";N;}

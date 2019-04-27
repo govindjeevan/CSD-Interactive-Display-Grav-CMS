@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledConfig',
-    'timestamp' => 1556181963,
-    'checksum' => 'bdcef275ce475a7815f2c3e1b6df8be2',
+    'timestamp' => 1556344335,
+    'checksum' => '251c1f851344a3a623238b959878e61a',
     'files' => [
         'user/config' => [
             'backups' => [
@@ -13,9 +13,17 @@ return [
                 'file' => 'user/config/media.yaml',
                 'modified' => 1555125247
             ],
+            'plugins/email' => [
+                'file' => 'user/config/plugins/email.yaml',
+                'modified' => 1556342439
+            ],
             'plugins/events' => [
                 'file' => 'user/config/plugins/events.yaml',
                 'modified' => 1556181963
+            ],
+            'plugins/instagram-feed' => [
+                'file' => 'user/config/plugins/instagram-feed.yaml',
+                'modified' => 1556344335
             ],
             'scheduler' => [
                 'file' => 'user/config/scheduler.yaml',
@@ -117,6 +125,10 @@ return [
                 'file' => 'user/plugins/icalendar/icalendar.yaml',
                 'modified' => 1556180607
             ],
+            'plugins/instagram-feed' => [
+                'file' => 'user/plugins/instagram-feed/instagram-feed.yaml',
+                'modified' => 1556342722
+            ],
             'plugins/login' => [
                 'file' => 'user/plugins/login/login.yaml',
                 'modified' => 1556180251
@@ -132,6 +144,10 @@ return [
             'plugins/simplesearch' => [
                 'file' => 'user/plugins/simplesearch/simplesearch.yaml',
                 'modified' => 1555126268
+            ],
+            'plugins/unitegallery' => [
+                'file' => 'user/plugins/unitegallery/unitegallery.yaml',
+                'modified' => 1556339453
             ]
         ]
     ],
@@ -215,9 +231,9 @@ return [
             ],
             'email' => [
                 'enabled' => true,
-                'from' => NULL,
+                'from' => '10bsaurabh@gmail.com',
                 'from_name' => NULL,
-                'to' => NULL,
+                'to' => 'sdewangan021@gmail.com',
                 'to_name' => NULL,
                 'queue' => [
                     'enabled' => false,
@@ -226,19 +242,19 @@ return [
                     'flush_time_limit' => 100
                 ],
                 'mailer' => [
-                    'engine' => 'sendmail',
+                    'engine' => 'none',
                     'smtp' => [
-                        'server' => 'localhost',
+                        'server' => 'google.com',
                         'port' => 25,
                         'encryption' => 'none',
-                        'user' => '',
-                        'password' => ''
+                        'user' => 'csdnitk',
+                        'password' => 'csdNITK1'
                     ],
                     'sendmail' => [
                         'bin' => '/usr/sbin/sendmail -bs'
                     ]
                 ],
-                'content_type' => 'text/html',
+                'content_type' => 'text/plain',
                 'debug' => false
             ],
             'error' => [
@@ -293,6 +309,14 @@ return [
                 'enabled' => true,
                 'icsfile' => 'example.ics',
                 'numevents' => 2
+            ],
+            'instagram-feed' => [
+                'enabled' => true,
+                'route' => '/',
+                'instagram_feed' => [
+                    'count' => '10',
+                    'username' => 'csd_nitk'
+                ]
             ],
             'login' => [
                 'enabled' => true,
@@ -383,6 +407,14 @@ return [
                     'by' => 'date',
                     'dir' => 'desc'
                 ]
+            ],
+            'unitegallery' => [
+                'enabled' => true,
+                'assets_in_meta' => true,
+                'gallery_theme' => 'tiles',
+                'gallery_div_id' => 'unite-gallery',
+                'thumb_width' => 600,
+                'thumb_height' => 600
             ]
         ],
         'backups' => [

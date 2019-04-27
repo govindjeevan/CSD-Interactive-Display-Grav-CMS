@@ -1,4 +1,4 @@
-last_checked: 1556174943
+last_checked: 1556204581
 data:
   -
     title: 'Grav 1.6 Released!'
@@ -34,7 +34,7 @@ data:
     title: 'Vote for Grav in the 2018 CMS Critic People''s Choice Awards'
     url: 'https://getgrav.org/blog/cms-critic-award-finalists-2018'
     date: 1539096480
-    nicetime: '6 months ago'
+    nicetime: '7 months ago'
   -
     title: 'New XSS Protection Available in Grav 1.5.2'
     url: 'https://getgrav.org/blog/new-xss-protection'

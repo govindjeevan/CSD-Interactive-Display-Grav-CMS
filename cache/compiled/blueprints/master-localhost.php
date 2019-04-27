@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledBlueprints',
-    'timestamp' => 1556181965,
-    'checksum' => '42bf97bc297b381e139cb616ea1640f2',
+    'timestamp' => 1556342723,
+    'checksum' => '4f42907a6810faf44d4fd569c0f33d5b',
     'files' => [
         'user/plugins/admin/blueprints/config' => [
             'media' => [
@@ -69,9 +69,17 @@ return [
                 'file' => 'user/plugins/form/blueprints.yaml',
                 'modified' => 1556180246
             ],
+            'plugins/gffi' => [
+                'file' => 'user/plugins/gffi/blueprints.yaml',
+                'modified' => 1556342558
+            ],
             'plugins/icalendar' => [
                 'file' => 'user/plugins/icalendar/blueprints.yaml',
                 'modified' => 1556180607
+            ],
+            'plugins/instagram-feed' => [
+                'file' => 'user/plugins/instagram-feed/blueprints.yaml',
+                'modified' => 1556342722
             ],
             'plugins/login' => [
                 'file' => 'user/plugins/login/blueprints.yaml',
@@ -88,6 +96,10 @@ return [
             'plugins/simplesearch' => [
                 'file' => 'user/plugins/simplesearch/blueprints.yaml',
                 'modified' => 1555126268
+            ],
+            'plugins/unitegallery' => [
+                'file' => 'user/plugins/unitegallery/blueprints.yaml',
+                'modified' => 1556339453
             ]
         ]
     ],
@@ -3685,6 +3697,28 @@ return [
                 'name' => 'plugins.form.recaptcha.secret_key',
                 'validation' => 'strict'
             ],
+            'plugins.gffi' => [
+                'type' => '_root',
+                'form_field' => false,
+                'form' => [
+                    'validation' => 'strict'
+                ]
+            ],
+            'plugins.gffi.enabled' => [
+                'type' => 'toggle',
+                'label' => 'Plugin status',
+                'highlight' => 1,
+                'default' => 0,
+                'options' => [
+                    1 => 'Enabled',
+                    0 => 'Disabled'
+                ],
+                'validate' => [
+                    'type' => 'bool'
+                ],
+                'name' => 'plugins.gffi.enabled',
+                'validation' => 'strict'
+            ],
             'plugins.icalendar' => [
                 'type' => '_root',
                 'form_field' => false,
@@ -3728,6 +3762,66 @@ return [
                 'name' => 'plugins.icalendar.icsfile',
                 'validation' => 'strict',
                 'array' => true
+            ],
+            'plugins.instagram-feed' => [
+                'type' => '_root',
+                'form_field' => false,
+                'form' => [
+                    'validation' => 'strict'
+                ]
+            ],
+            'plugins.instagram-feed.enabled' => [
+                'type' => 'toggle',
+                'label' => 'Plugin status',
+                'highlight' => 1,
+                'default' => 0,
+                'options' => [
+                    1 => 'Enabled',
+                    0 => 'Disabled'
+                ],
+                'validate' => [
+                    'type' => 'bool'
+                ],
+                'name' => 'plugins.instagram-feed.enabled',
+                'validation' => 'strict'
+            ],
+            'plugins.instagram-feed.instagram_feed' => [
+                'type' => '_parent',
+                'name' => 'plugins.instagram-feed.instagram_feed',
+                'form_field' => false
+            ],
+            'plugins.instagram-feed.instagram_feed.count' => [
+                'type' => 'text',
+                'size' => 'small',
+                'label' => 'Amount of Images to show',
+                'default' => '10,',
+                'valdiate' => [
+                    'type' => 'number',
+                    'min' => 1,
+                    'max' => 20
+                ],
+                'name' => 'plugins.instagram-feed.instagram_feed.count',
+                'validation' => 'strict'
+            ],
+            'plugins.instagram-feed.instagram_feed.username' => [
+                'type' => 'text',
+                'size' => 'small',
+                'label' => 'Instagram Username',
+                'name' => 'plugins.instagram-feed.instagram_feed.username',
+                'validation' => 'strict'
+            ],
+            'plugins.instagram-feed.instagram_feed.cache_expires' => [
+                'type' => 'text',
+                'size' => 'small',
+                'label' => 'Seconds to cache the feed',
+                'default' => '300,',
+                'validate' => [
+                    'type' => 'number',
+                    'min' => 300,
+                    'max' => 60000
+                ],
+                'name' => 'plugins.instagram-feed.instagram_feed.cache_expires',
+                'validation' => 'strict'
             ],
             'plugins.login' => [
                 'type' => '_root',
@@ -4404,6 +4498,93 @@ return [
                 ],
                 'name' => 'plugins.simplesearch.order.dir',
                 'validation' => 'strict'
+            ],
+            'plugins.unitegallery' => [
+                'type' => '_root',
+                'form_field' => false,
+                'form' => [
+                    'validation' => 'strict'
+                ]
+            ],
+            'plugins.unitegallery.enabled' => [
+                'type' => 'toggle',
+                'label' => 'Plugin status',
+                'highlight' => 1,
+                'default' => 0,
+                'options' => [
+                    1 => 'Enabled',
+                    0 => 'Disabled'
+                ],
+                'validate' => [
+                    'type' => 'bool'
+                ],
+                'name' => 'plugins.unitegallery.enabled',
+                'validation' => 'strict'
+            ],
+            'plugins.unitegallery.assets_in_meta' => [
+                'type' => 'toggle',
+                'label' => 'Store assets in page metadata',
+                'highlight' => 1,
+                'default' => 1,
+                'options' => [
+                    1 => 'Enabled',
+                    0 => 'Disabled'
+                ],
+                'validate' => [
+                    'type' => 'bool'
+                ],
+                'name' => 'plugins.unitegallery.assets_in_meta',
+                'validation' => 'strict'
+            ],
+            'plugins.unitegallery.gallery_theme' => [
+                'type' => 'select',
+                'label' => 'Gallery theme',
+                'default' => 'default',
+                'options' => [
+                    'default' => 'Default',
+                    'tiles' => 'Tiles',
+                    'tilesgrid' => 'TilesGrid',
+                    'carousel' => 'Carousel',
+                    'compact' => 'Compact',
+                    'grid' => 'Grid',
+                    'slider' => 'Slider'
+                ],
+                'name' => 'plugins.unitegallery.gallery_theme',
+                'validation' => 'strict'
+            ],
+            'plugins.unitegallery.gallery_div_id' => [
+                'type' => 'text',
+                'label' => 'Id for gallery div',
+                'default' => 'unite-gallery',
+                'validate' => [
+                    'type' => 'text',
+                    'pattern' => '^\\S+$',
+                    'message' => 'Valid HTML5 element Id expected (no whitespace charachers allowed)'
+                ],
+                'name' => 'plugins.unitegallery.gallery_div_id',
+                'validation' => 'strict'
+            ],
+            'plugins.unitegallery.thumb_width' => [
+                'type' => 'number',
+                'label' => 'Thumbnail width',
+                'default' => 600,
+                'validate' => [
+                    'type' => 'number',
+                    'min' => 100
+                ],
+                'name' => 'plugins.unitegallery.thumb_width',
+                'validation' => 'strict'
+            ],
+            'plugins.unitegallery.thumb_height' => [
+                'type' => 'integer',
+                'label' => 'Thumbnail height',
+                'default' => 600,
+                'validate' => [
+                    'type' => 'number',
+                    'min' => 100
+                ],
+                'name' => 'plugins.unitegallery.thumb_height',
+                'validation' => 'strict'
             ]
         ],
         'rules' => [
@@ -4824,10 +5005,21 @@ return [
                         'secret_key' => 'plugins.form.recaptcha.secret_key'
                     ]
                 ],
+                'gffi' => [
+                    'enabled' => 'plugins.gffi.enabled'
+                ],
                 'icalendar' => [
                     'enabled' => 'plugins.icalendar.enabled',
                     'numevents' => 'plugins.icalendar.numevents',
                     'icsfile' => 'plugins.icalendar.icsfile'
+                ],
+                'instagram-feed' => [
+                    'enabled' => 'plugins.instagram-feed.enabled',
+                    'instagram_feed' => [
+                        'count' => 'plugins.instagram-feed.instagram_feed.count',
+                        'username' => 'plugins.instagram-feed.instagram_feed.username',
+                        'cache_expires' => 'plugins.instagram-feed.instagram_feed.cache_expires'
+                    ]
                 ],
                 'login' => [
                     'enabled' => 'plugins.login.enabled',
@@ -4901,6 +5093,14 @@ return [
                         'by' => 'plugins.simplesearch.order.by',
                         'dir' => 'plugins.simplesearch.order.dir'
                     ]
+                ],
+                'unitegallery' => [
+                    'enabled' => 'plugins.unitegallery.enabled',
+                    'assets_in_meta' => 'plugins.unitegallery.assets_in_meta',
+                    'gallery_theme' => 'plugins.unitegallery.gallery_theme',
+                    'gallery_div_id' => 'plugins.unitegallery.gallery_div_id',
+                    'thumb_width' => 'plugins.unitegallery.thumb_width',
+                    'thumb_height' => 'plugins.unitegallery.thumb_height'
                 ]
             ]
         ],
