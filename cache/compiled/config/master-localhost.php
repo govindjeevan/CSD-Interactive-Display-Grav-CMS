@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledConfig',
-    'timestamp' => 1571407485,
-    'checksum' => 'f81a90f0e31001260e7b5c53c42dfe67',
+    'timestamp' => 1571407900,
+    'checksum' => 'ade5b341763b7645dab6a1ecc70dc544',
     'files' => [
         'user/config' => [
             'backups' => [
@@ -47,7 +47,7 @@ return [
             ],
             'system' => [
                 'file' => 'user/config/system.yaml',
-                'modified' => 1571407113
+                'modified' => 1571407900
             ],
             'themes/cardstack' => [
                 'file' => 'user/config/themes/cardstack.yaml',
