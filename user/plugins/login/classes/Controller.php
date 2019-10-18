@@ -129,7 +129,9 @@ class Controller
         $messages = $this->grav['messages'];
 
         $userKey = (string)($this->post['username'] ?? '');
-        $ipKey = Uri::ip();
+        $ip = Uri::ip();
+        $isIPv4 = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
+        $ipKey = $isIPv4 ? $ip : Utils::getSubnet($ip, $this->grav['config']->get('plugins.login.ipv6_subnet_size'));
 
         // Is twofa enabled?
         $twofa = $this->grav['config']->get('plugins.login.twofa_enabled', false);
@@ -165,7 +167,9 @@ class Controller
                 $event->defMessage('PLUGIN_LOGIN.LOGIN_SUCCESSFUL', 'info');
 
                 $event->defRedirect(
-                    $this->grav['session']->redirect_after_login ?: $this->grav['uri']->referrer('/')
+                    $this->grav['session']->redirect_after_login ?:
+                        $this->grav['config']->get('plugins.login.redirect_after_login') ?:
+                            $this->grav['uri']->referrer('/')
                 );
             } else {
                 $login_route = $this->grav['config']->get('plugins.login.route');

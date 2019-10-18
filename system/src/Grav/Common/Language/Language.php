@@ -104,6 +104,11 @@ class Language
     public function getAvailable()
     {
         $languagesArray = $this->languages; //Make local copy
+
+        $languagesArray = array_map(function($value) {
+            return preg_quote($value);
+        }, $languagesArray);
+
         sort($languagesArray);
 
         return implode('|', array_reverse($languagesArray));
@@ -229,7 +234,7 @@ class Language
     }
 
     /**
-     * Get's a URL prefix based on configuration
+     * Get a URL prefix based on configuration
      *
      * @param string|null $lang
      * @return string

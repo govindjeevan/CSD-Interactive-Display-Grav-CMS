@@ -13,6 +13,7 @@ use Grav\Common\Config\Config;
 use Grav\Common\Debugger;
 use Grav\Common\Session;
 use Grav\Common\Uri;
+use Grav\Common\Utils;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use RocketTheme\Toolbox\Session\Message;
@@ -49,14 +50,17 @@ class SessionServiceProvider implements ServiceProviderInterface
             // Activate admin if we're inside the admin path.
             $is_admin = false;
             if ($config->get('plugins.admin.enabled')) {
-                $base = '/' . trim($config->get('plugins.admin.route'), '/');
+                $admin_base = '/' . trim($config->get('plugins.admin.route'), '/');
 
                 // Uri::route() is not processed yet, let's quickly get what we need.
                 $current_route = str_replace(Uri::filterPath($uri->rootUrl(false)), '', parse_url($uri->url(true), PHP_URL_PATH));
 
+                // Test to see if path starts with a supported language + admin base
+                $lang = Utils::pathPrefixedByLangCode($current_route);
+                $lang_admin_base = '/' . $lang . $admin_base;
+
                 // Check no language, simple language prefix (en) and region specific language prefix (en-US).
-                $pos = strpos($current_route, $base);
-                if ($pos === 0 || $pos === 3 || $pos === 6) {
+                if (Utils::startsWith($current_route, $admin_base) || Utils::startsWith($current_route, $lang_admin_base)) {
                     $cookie_lifetime = $config->get('plugins.admin.session.timeout', 1800);
                     $enabled = $is_admin = true;
                 }

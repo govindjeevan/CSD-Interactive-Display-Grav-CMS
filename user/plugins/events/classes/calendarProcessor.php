@@ -1,13 +1,15 @@
 <?php
-/**
- *                  __ _           _ _           _    _
- *                 / _| |         | | |         | |  | |
- *   ___ _ __ __ _| |_| |_ ___  __| | |__  _   _| | _| |__
- *  / __| '__/ _` |  _| __/ _ \/ _` | '_ \| | | | |/ / '_ \
- * | (__| | | (_| | | | ||  __/ (_| | |_) | |_| |   <| | | |
- *  \___|_|  \__,_|_|  \__\___|\__,_|_.__/ \__, |_|\_\_| |_|
- *                                          __/ |
- * Designed + Developed by Kaleb Heitzman  |___/
+/**                          
+ *     __                         __              
+ *    / /_  _________ _____  ____/ /_____________ 
+ *   / __ \/ ___/ __ `/ __ \/ __  / ___/ ___/ __ \
+ *  / /_/ / /  / /_/ / / / / /_/ / /  / /__/ /_/ /
+ * /_.___/_/   \__,_/_/ /_/\__,_/_/   \___/\____/ 
+ *                                                              
+ * Designed + Developed 
+ * by Kaleb Heitzman
+ * https://brandr.co
+ * 
  * (c) 2016
  */
 namespace Events;
@@ -29,7 +31,7 @@ use Carbon\Carbon;
  * @author     Kaleb Heitzman <kalebheitzman@gmail.com>
  * @copyright  2016 Kaleb Heitzman
  * @license    https://opensource.org/licenses/MIT MIT
- * @version    1.0.15
+ * @version    1.1.0
  * @link       https://github.com/kalebheitzman/grav-plugin-events
  * @since      1.0.0 Initial Release
  */
@@ -57,7 +59,7 @@ class CalendarProcessor
 	 * @param  object $collection Grav Collection
 	 * @return array              Calendar variables for Twig
 	 */
-	public function calendarVars( $collection )
+	public function calendarVars( \Grav\Common\Page\Collection $collection )
 	{
 		// build a calendar array to use in twig
 		$calendar = array();
@@ -65,6 +67,7 @@ class CalendarProcessor
 		$collection->order('date', 'asc');
 
 		foreach($collection as $event) {
+
 			$header = $event->header();
 			$start = $header->event['start'];
 
@@ -74,11 +77,8 @@ class CalendarProcessor
  			$month = $carbonStart->month;
  			$day = $carbonStart->day;
 
- 			$eventItem = $event->toArray();
- 			$eventItem['header']['url'] = $event->url();
-
  			// add the event to the calendar
- 			$calendar[$year][$month][$day][] = $eventItem;
+ 			$calendar[$year][$month][$day][] = $event; //$eventItem;
 		}
 
 		return $calendar;

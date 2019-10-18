@@ -97,12 +97,12 @@ class YamlFormatter extends AbstractFormatter
             @ini_set('yaml.decode_php', $saved);
 
             if ($decoded !== false) {
-                return $decoded;
+                return (array) $decoded;
             }
         }
 
         try {
-            return YamlParser::parse($data);
+            return (array) YamlParser::parse($data);
         } catch (ParseException $e) {
             if ($this->useCompatibleDecoder()) {
                 return (array) FallbackYamlParser::parse($data);

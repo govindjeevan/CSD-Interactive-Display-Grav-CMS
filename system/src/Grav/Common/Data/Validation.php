@@ -27,8 +27,9 @@ class Validation
         if (!isset($field['type'])) {
             $field['type'] = 'text';
         }
-        $type = $validate['type'] ?? $field['type'];
+
         $validate = (array)($field['validate'] ?? null);
+        $type = $validate['type'] ?? $field['type'];
         $required = $validate['required'] ?? false;
 
         // If value isn't required, we will stop validation if empty value is given.
@@ -163,6 +164,11 @@ class Validation
         }
 
         return (string) $value;
+    }
+
+    protected static function filterCheckbox($value, array $params, array $field)
+    {
+        return (bool) $value;
     }
 
     protected static function filterCommaList($value, array $params, array $field)
@@ -569,6 +575,11 @@ class Validation
             if (isset($params['step']) && (\count($value) - $min) % $params['step'] === 0) {
                 return false;
             }
+        }
+
+        // If creating new values is allowed, no further checks are needed.
+        if (!empty($field['selectize']['create'])) {
+            return true;
         }
 
         $options = $field['options'] ?? [];

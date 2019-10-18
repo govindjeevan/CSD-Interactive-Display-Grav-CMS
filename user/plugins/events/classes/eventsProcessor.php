@@ -1,16 +1,17 @@
 <?php
-/**
- *                  __ _           _ _           _    _
- *                 / _| |         | | |         | |  | |
- *   ___ _ __ __ _| |_| |_ ___  __| | |__  _   _| | _| |__
- *  / __| '__/ _` |  _| __/ _ \/ _` | '_ \| | | | |/ / '_ \
- * | (__| | | (_| | | | ||  __/ (_| | |_) | |_| |   <| | | |
- *  \___|_|  \__,_|_|  \__\___|\__,_|_.__/ \__, |_|\_\_| |_|
- *                                          __/ |
- * Designed + Developed by Kaleb Heitzman  |___/
+/**                          
+ *     __                         __              
+ *    / /_  _________ _____  ____/ /_____________ 
+ *   / __ \/ ___/ __ `/ __ \/ __  / ___/ ___/ __ \
+ *  / /_/ / /  / /_/ / / / / /_/ / /  / /__/ /_/ /
+ * /_.___/_/   \__,_/_/ /_/\__,_/_/   \___/\____/ 
+ *                                                              
+ * Designed + Developed 
+ * by Kaleb Heitzman
+ * https://brandr.co
+ * 
  * (c) 2016
  */
-
 namespace Events;
 
 // import classes
@@ -35,23 +36,29 @@ use Grav\Common\Grav;
  * @author     Kaleb Heitzman <kalebheitzman@gmail.com>
  * @copyright  2016 Kaleb Heitzman
  * @license    https://opensource.org/licenses/MIT MIT
- * @version    1.0.15 Major Refactor
+ * @version    1.1.0
  * @link       https://github.com/kalebheitzman/grav-plugin-events
  * @since      1.0.0 Initial Release
  */
 class EventsProcessor
 {
 	/**
-	 * @var  object Grav Pages
-	 * @since  1.0.0 	Initial Release
+	 * @var  	object Grav Pages
+	 * @since  	1.0.0 	Initial Release
 	 */
 	protected $pages;
 
 	/**
-	 * @var object Grav Taxonomy
-	 * @since  1.0.0 	Initial Release
+	 * @var 	object Grav Taxonomy
+	 * @since  	1.0.0 	Initial Release
 	 */
 	protected $taxonomy;
+
+	/**
+	 * @var 	array Event Categories
+	 * @since  	1.0.16 
+	 */
+	protected $eventCategories;
 
 	/**
 	 * Events Class Construct
@@ -70,6 +77,9 @@ class EventsProcessor
 		// we use pages and taxonomy to add cloned pages back into the flow
 		$this->pages = $grav['pages'];
 		$this->taxonomy = $grav['taxonomy'];
+
+		// initialize eventCategories
+		$this->eventCategories = [];
 	}
 
 	/**
@@ -106,7 +116,7 @@ class EventsProcessor
 
 		// get the events
 		$collection = $pages->all();
-		$events = $collection->ofType('event');
+		$collection->ofType('event');
 
 		/**
 		 * STEP 1: Preprocess the Event
@@ -165,15 +175,17 @@ class EventsProcessor
 			// build a carbon events object to insert into header frontmatter
 			$carbonEvent = [];
 			$carbonEvent['start'] = Carbon::parse( $event['start'] );
-			$carbonEvent['end'] = Carbon::parse( $event['end'] );
+			if ( isset( $event['end'] ) ) {
+				$carbonEvent['end'] = Carbon::parse( $event['end'] );
+			}
 
 			// build an until date if needed
 			if ( isset( $event['until'] ) ) {
 				$carbonEvent['until'] = Carbon::parse( $event['until'] );
 			}
 			elseif ( isset( $event['freq'] ) && ! isset( $event['until'] ) ) {
-				$carbonEvent['until'] = Carbon::parse( $event['start'] )->addMonths( 6 );
-				$header->event['until'] = Carbon::parse( $event['start'] )->addMonths( 6 )->format('m/d/Y g:ia');
+				$carbonEvent['until'] = Carbon::parse( $event['start'] )->addMonths( $grav['config']->get('plugins.events.display_months_out') );
+				$header->event['until'] = Carbon::parse( $event['start'] )->addMonths( $grav['config']->get('plugins.events.display_months_out') )->format('m/d/Y g:ia');
 			}
 
 			// setup grav date
@@ -209,6 +221,15 @@ class EventsProcessor
 			// add taxonomies
 			$taxonomy = $page->taxonomy();
 			$newTaxonomy = array_merge($taxonomy, $eventTaxonomy);
+
+			// add categories to $eventCategories
+			if ( isset( $newTaxonomy['category'] ) ) {
+				foreach ($newTaxonomy['category'] as $category) {
+					if ( ! in_array($category, $this->eventCategories) ) {
+						array_push($this->eventCategories, $category);
+					}
+				}
+			}
 
 			// set the page taxonomy
 			$page->taxonomy($newTaxonomy);
@@ -266,7 +287,7 @@ class EventsProcessor
 							$dates['end'] = $header->_event['end']->copy()->addDays($e_diff);
 
 							// clone the page and add the new dates
-							$clone = $this->clonePage( $page, $dates, $rule );
+							$this->clonePage( $page, $dates, $rule );
 						}
 					}
 				}
@@ -304,117 +325,21 @@ class EventsProcessor
 				$start = Carbon::parse($header->event['start']);
 				$end   = Carbon::parse($header->event['end']);
 
-				/**
-				 * Calculate the iteration count depending on frequency set
-				 */
-				switch($freq) {
-					case 'daily':
-						$count = $until->diffInDays($start);
-						break;
-
-					case 'weekly':
-						$count = $until->diffInWeeks($start);
-						break;
-
-					case 'monthly':
-						$count = $until->diffInMonths($start);
-						break;
-
-					case 'yearly':
-						$count = $until->diffInYears($start);
-						break;
-				}
+				// get the iteration count
+				$count = $this->calculateCount( $freq, $until, $start );
 
 				/**
 				 * Calculate the New Dates based on the Count and Freq
 				 */
 				for( $i=1; $i < $count; $i++ )
 				{
-
-					// update the start and end dates of the event frontmatter
-					switch($freq) {
-						case 'daily':
-							$newStart = $start->copy()->addDays($i);
-							$newEnd = $end->copy()->addDays($i);
-							break;
-
-						case 'weekly':
-							$newStart = $start->copy()->addWeeks($i);
-							$newEnd = $end->copy()->addWeeks($i);
-							break;
-
-						// special case for monthly because there aren't the same
-						// number of days each month.
-						case 'monthly':
-							// start vars
-							$sDayOfWeek = $start->copy()->dayOfWeek;
-							$sWeekOfMonth = $start->copy()->weekOfMonth;
-							$sHours = $start->copy()->hour;
-							$sMinutes = $start->copy()->minute;
-							$sMonth = $start->copy()->month;
-							$sYear = $start->copy()->year;
-							$sNext = $start->copy()->addMonths($i)->firstOfMonth();
-
-							// end vars
-							$eDayOfWeek = $end->copy()->dayOfWeek;
-							$eWeekOfMonth = $end->copy()->weekOfMonth;
-							$eHours = $end->copy()->hour;
-							$eMinutes = $end->copy()->minute;
-							$eMonth = $end->copy()->month;
-							$eYear = $end->copy()->year;
-							$eNext = $end->copy()->addMonths($i)->firstOfMonth();
-
-							// weeks
-							$rd[1] = 'first';
-							$rd[2] = 'second';
-							$rd[3] = 'third';
-							$rd[4] = 'fourth';
-							$rd[5] = 'fifth';
-
-							// days
-							$ry[0] = 'sunday';
-							$ry[1] = 'monday';
-							$ry[2] = 'tuesday';
-							$ry[3] = 'wednesday';
-							$ry[4] = 'thursday';
-							$ry[5] = 'friday';
-							$ry[6] = 'saturday';
-
-							// months
-							$rm[1] = 'jan';
-							$rm[2] = 'feb';
-							$rm[3] = 'mar';
-							$rm[4] = 'apr';
-							$rm[5] = 'may';
-							$rm[6] = 'jun';
-							$rm[7] = 'jul';
-							$rm[8] = 'aug';
-							$rm[9] = 'sep';
-							$rm[10] = 'oct';
-							$rm[11] = 'nov';
-							$rm[12] = 'dec';
-
-							// get the correct next date
-							$sStringDateTime = $rd[$sWeekOfMonth] . ' ' . $ry[$sDayOfWeek] . ' of ' . $rm[$sNext->month] . ' ' . $sNext->year;
-							$eStringDateTime = $rd[$eWeekOfMonth] . ' ' . $ry[$eDayOfWeek] . ' of ' . $rm[$eNext->month] . ' ' . $eNext->year;
-
-							$newStart = Carbon::parse($sStringDateTime)->addHours($sHours)->addMinutes($sMinutes);
-							$newEnd = Carbon::parse($eStringDateTime)->addHours($eHours)->addMinutes($eMinutes);
-							break;
-
-						case 'yearly':
-							$newStart = $start->copy()->addYears($i);
-							$newEnd = $end->copy()->addYears($i);
-							break;
-					}
-
-					// build the date params
-					$dates['start'] = $newStart;
-					$dates['end'] = $newEnd;
+					// get the new dates
+					$dates = $this->calculateNewDates( $freq, $i, $start, $end );
+					$header = $page->header();
 
 					// access the saved original for repeating MTWRFSU events
-					if (isset($page->header()->_event['page'])) {
-						$page = $page->header()->_event['page'];
+					if (isset($header->_event['page'])) {
+						$page = $header->_event['page'];
 					}
 
 					// get the new cloned event
@@ -444,14 +369,25 @@ class EventsProcessor
 	 * @since  1.0.1 Initial Release
 	 * @return object        Grav Page
 	 */
-	private function clonePage( $page, $dates, $rule = null ) {
+	private function clonePage( \Grav\Common\Page\Page $page, $dates, $rule = null ) {
 
 		// clone the page
 		$clone = clone $page;
 
 		// get the clone header
 		$header = clone $clone->header();
-		$taxonomy = $clone->taxonomy();
+
+		// dont add events with exception dates
+		if ( isset( $header->event['exceptions'] ) ) {
+			$exceptions = $header->event['exceptions'];
+			$date = Carbon::parse( $header->date );
+			foreach ( $exceptions as $exception ) {
+				$exception = Carbon::parse( $exception['date'] );
+				if( $exception->isSameDay($dates['start']) ) {
+					return;
+				}
+			}
+		}
 
 		// update the header dates
 		$header->date = $dates['start']->format('m/d/Y g:i a');
@@ -500,6 +436,184 @@ class EventsProcessor
 		$this->taxonomy->addTaxonomy($clone, $clone->taxonomy());
 
 		return $clone;
+	}
+
+	public function getEventCategories()
+	{
+		sort($this->eventCategories);
+		return $this->eventCategories;
+	}
+
+	/**
+	 * Recurring Count Calculator
+	 *
+	 * Calculate the recurring count for events
+	 *
+	 * @since  1.0.16
+	 * @param  string $freq  Frequency to repeat
+	 * @param  object $until Carbon DateTime
+	 * @param  object $start Carbon DateTime
+	 * @return integer       Repeat Count
+	 */
+	private function calculateCount( $freq, \Carbon\Carbon $until, \Carbon\Carbon $start )
+	{
+		/**
+		 * Calculate the iteration count depending on frequency set
+		 */
+		switch($freq) {
+			case 'daily':
+				$count = $until->diffInDays($start);
+				break;
+
+			case 'weekly':
+				$count = $until->diffInWeeks($start);
+				break;
+
+			case 'monthly':
+				$count = $until->diffInMonths($start);
+				break;
+
+			case 'yearly':
+				$count = $until->diffInYears($start);
+				break;
+		}
+
+		return $count;
+	}
+
+	/**
+	 * Calculate New Dates
+	 *
+	 * Calculates new dates based on the frequency and
+	 * loop counter. Use Carbon DateTime to calculate the
+	 * new dates.
+	 *
+	 * @param  string       $freq  Frequency
+	 * @param  integery     $i     Loop Counter
+	 * @param  CarbonCarbon $start DateTime
+	 * @param  CarbonCarbon $end   DateTime
+	 * @since  1.0.16
+	 * @return array               New Dates
+	 */
+	private function calculateNewDates( $freq, $i, \Carbon\Carbon $start, \Carbon\Carbon $end )
+	{
+		// update the start and end dates of the event frontmatter
+		switch($freq) {
+			case 'daily':
+				$newStart = $start->copy()->addDays($i);
+				$newEnd = $end->copy()->addDays($i);
+				break;
+
+			case 'weekly':
+				$newStart = $start->copy()->addWeeks($i);
+				$newEnd = $end->copy()->addWeeks($i);
+				break;
+
+			// special case for monthly because there aren't the same
+			// number of days each month.
+			case 'monthly':
+				// start vars
+				$sDayOfWeek = $start->copy()->dayOfWeek;
+				$sWeekOfMonth = $start->copy()->weekOfMonth;
+				$sHours = $start->copy()->hour;
+				$sMinutes = $start->copy()->minute;
+				$sNext = $start->copy()->addMonths($i)->firstOfMonth();
+
+				// end vars
+				$eDayOfWeek = $end->copy()->dayOfWeek;
+				$eWeekOfMonth = $end->copy()->weekOfMonth;
+				$eHours = $end->copy()->hour;
+				$eMinutes = $end->copy()->minute;
+				$eNext = $end->copy()->addMonths($i)->firstOfMonth();
+
+				$rd = $this->getWeeks();
+				$ry = $this->getDays();
+				$rm = $this->getMonths();
+
+				// get the correct next date
+				$sStringDateTime = $rd[$sWeekOfMonth] . ' ' . $ry[$sDayOfWeek] . ' of ' . $rm[$sNext->month] . ' ' . $sNext->year;
+				$eStringDateTime = $rd[$eWeekOfMonth] . ' ' . $ry[$eDayOfWeek] . ' of ' . $rm[$eNext->month] . ' ' . $eNext->year;
+
+				$newStart = Carbon::parse($sStringDateTime)->addHours($sHours)->addMinutes($sMinutes);
+				$newEnd = Carbon::parse($eStringDateTime)->addHours($eHours)->addMinutes($eMinutes);
+				break;
+
+			case 'yearly':
+				$newStart = $start->copy()->addYears($i);
+				$newEnd = $end->copy()->addYears($i);
+				break;
+		}
+
+		$newDates['start'] = $newStart;
+		$newDates['end'] = $newEnd;
+
+		return $newDates;
+	}
+
+	/**
+	 * Get Weeks
+	 *
+	 * Human readable string for week of month
+	 * @since  1.0.16
+	 * @return array Weeks
+	 */
+	private function getWeeks()
+	{
+		// weeks
+		$rd[1] = 'first';
+		$rd[2] = 'second';
+		$rd[3] = 'third';
+		$rd[4] = 'fourth';
+		$rd[5] = 'fifth';
+
+		return $rd;
+	}
+
+	/**
+	 * Get Days
+	 *
+	 * Human readable string for days of week
+	 * @since  1.0.16
+	 * @return array Days
+	 */
+	private function getDays()
+	{
+		// days
+		$ry[0] = 'sunday';
+		$ry[1] = 'monday';
+		$ry[2] = 'tuesday';
+		$ry[3] = 'wednesday';
+		$ry[4] = 'thursday';
+		$ry[5] = 'friday';
+		$ry[6] = 'saturday';
+
+		return $ry;
+	}
+
+	/**
+	 * Get Months
+	 *
+	 * Human readable string for month of year
+	 * @since  1.0.16
+	 * @return array Months
+	 */
+	private function getMonths()
+	{
+		// months
+		$rm[1] = 'jan';
+		$rm[2] = 'feb';
+		$rm[3] = 'mar';
+		$rm[4] = 'apr';
+		$rm[5] = 'may';
+		$rm[6] = 'jun';
+		$rm[7] = 'jul';
+		$rm[8] = 'aug';
+		$rm[9] = 'sep';
+		$rm[10] = 'oct';
+		$rm[11] = 'nov';
+		$rm[12] = 'dec';
+
+		return $rm;
 	}
 
 }

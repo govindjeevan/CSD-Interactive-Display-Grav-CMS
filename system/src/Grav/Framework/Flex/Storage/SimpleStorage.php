@@ -192,6 +192,9 @@ class SimpleStorage extends AbstractFilesystemStorage
 
         $list = [];
         foreach ($rows as $key => $row) {
+            if (strpos($key, '@@')) {
+                $key = $this->getNewKey();
+            }
             $this->data[$key] = $list[$key] = $row;
         }
 
@@ -224,7 +227,12 @@ class SimpleStorage extends AbstractFilesystemStorage
         $keys = array_keys($this->data);
         $keys[array_search($src, $keys, true)] = $dst;
 
-        $this->data = array_combine($keys, $this->data);
+        $data = array_combine($keys, $this->data);
+        if (false === $data) {
+            throw new \LogicException('Bad data');
+        }
+
+        $this->data = $data;
 
         return true;
     }

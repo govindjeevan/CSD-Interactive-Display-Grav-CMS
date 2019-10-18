@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => 'plugins://unitegallery/unitegallery.yaml',
-    'modified' => 1556339453,
+    'modified' => 1566154915,
     'data' => [
         'enabled' => true,
         'assets_in_meta' => true,

@@ -1,3 +1,22 @@
+# v3.0.3
+## 08/16/2019
+
+1. [](#new)
+    * Support an array of multiple emails in `email:` form process
+    * Allow form values in email templates 
+1. [](#improved)
+    * Added Twig blocks for `content` and `footer` in `email/base.html.twig` template
+    * Updated `README.md` to reflect working setup for GMail 
+
+# v3.0.2
+## 05/09/2019
+
+1. [](#new)
+    * Requires Form Plugin v3.0.3
+    * Added Russian translation [#113](https://github.com/getgrav/grav-plugin-email/pull/113)
+1. [](#bugfix)
+    * Better fix for missing attachments when sending an email using a form [form#333](https://github.com/getgrav/grav-plugin-form/issues/333)
+
 # v3.0.1
 ## 04/15/2019
 

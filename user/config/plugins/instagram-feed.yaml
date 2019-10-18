@@ -1,4 +1,4 @@
-enabled: true
+enabled: false
 route: /
 instagram_feed:
   count: '10'

@@ -1,18 +1,15 @@
 name: Icalendar
-version: 0.1.0
+version: 0.2.3
 description: Reads ICS Files and shows Events from it
-icon: plug
+icon: calendar
 author:
   name: Werner Joss
   email: werner@hoernerfranzracing.de
-homepage: https://github.com/werner-hoernerfranzracing-de/grav-plugin-icalendar
+homepage: https://github.com/wernerjoss/grav-plugin-icalendar
 keywords: grav, plugin, ICS, Icalendar
-bugs: https://github.com/werner-hoernerfranzracing-de/grav-plugin-icalendar/issues
-docs: https://github.com/werner-hoernerfranzracing-de/grav-plugin-icalendar/blob/develop/README.md
+bugs: https://github.com/wernerjoss/grav-plugin-icalendar/issues
+docs: https://github.com/wernerjoss/grav-plugin-icalendar/blob/master/README.md
 license: MIT
-
-# dependencies:
-#   - { name: om/icalparser }
 
 form:
   validation: strict
@@ -29,8 +26,7 @@ form:
         type: bool
     numevents:
       type: text
-      label: PLUGIN_ICALENDAR.NUMEVENTS
-      help: PLUGIN_ICALENDAR.NUMEVENTS_HELP
+      label: Number of Events to show
       validate:
         type: number
         min: 1
@@ -41,3 +37,7 @@ form:
         destination: 'user/data/calendars'
         accept:
             - .ics
+    dateformat:
+        type: text
+        label: Date Format
+        default: d.m.Y

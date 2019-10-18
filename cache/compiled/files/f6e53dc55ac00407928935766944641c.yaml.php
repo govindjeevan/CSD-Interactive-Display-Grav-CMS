@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => 'plugins://events/events.yaml',
-    'modified' => 1556180313,
+    'modified' => 1571407257,
     'data' => [
         'enabled' => true,
         'date_format' => [

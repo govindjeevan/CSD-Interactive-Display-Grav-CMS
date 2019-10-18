@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => 'themes://editorial/editorial.yaml',
-    'modified' => 1555126275,
+    'modified' => 1566154915,
     'data' => [
         'enabled' => true,
         'sidebarEnabled' => 'active',

@@ -437,6 +437,9 @@ class Cache extends Getters
             case 'tmp-only':
                 $remove_paths = self::$tmp_remove;
                 break;
+            case 'invalidate':
+                $remove_paths = [];
+                break;
             default:
                 if (Grav::instance()['config']->get('system.cache.clear_images_by_default')) {
                     $remove_paths = self::$standard_remove;
@@ -528,7 +531,6 @@ class Cache extends Getters
 
     }
 
-
     /**
      * Set the cache lifetime programmatically
      *
@@ -540,7 +542,7 @@ class Cache extends Getters
             return;
         }
 
-        $interval = $future - $this->now;
+        $interval = (int)($future - $this->now);
         if ($interval > 0 && $interval < $this->getLifetime()) {
             $this->lifetime = $interval;
         }
@@ -555,7 +557,7 @@ class Cache extends Getters
     public function getLifetime()
     {
         if ($this->lifetime === null) {
-            $this->lifetime = $this->config->get('system.cache.lifetime') ?: 604800; // 1 week default
+            $this->lifetime = (int)($this->config->get('system.cache.lifetime') ?: 604800); // 1 week default
         }
 
         return $this->lifetime;

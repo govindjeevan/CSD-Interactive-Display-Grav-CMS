@@ -9,6 +9,7 @@
 
 namespace Grav\Framework\Flex;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Grav\Common\Debugger;
 use Grav\Common\Grav;
@@ -125,7 +126,7 @@ class FlexCollection extends ObjectCollection implements FlexCollectionInterface
 
     /**
      * @param array $filters
-     * @return FlexCollectionInterface
+     * @return FlexCollectionInterface|Collection
      */
     public function filterBy(array $filters)
     {
@@ -490,7 +491,12 @@ class FlexCollection extends ObjectCollection implements FlexCollectionInterface
         $twig = $grav['twig'];
 
         try {
-            return $twig->twig()->resolveTemplate(["flex-objects/layouts/{$this->getFlexType()}/collection/{$layout}.html.twig"]);
+            return $twig->twig()->resolveTemplate(
+                [
+                    "flex-objects/layouts/{$this->getFlexType()}/collection/{$layout}.html.twig",
+                    "flex-objects/layouts/_default/collection/{$layout}.html.twig"
+                ]
+            );
         } catch (LoaderError $e) {
             /** @var Debugger $debugger */
             $debugger = Grav::instance()['debugger'];

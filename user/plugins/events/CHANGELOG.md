@@ -1,3 +1,24 @@
+# v1.1.0
+## 08/15/2019
+1. [](#new)
+    * added ics file parsing
+    * added German translation
+    * merged some code from several pull requests and known issues
+2. [](#improved)
+    * removed unused elements from admin site and added some new
+    * revised templates and CSS
+    * updated dependencies
+    * some minor changes
+3. [](#bugfix)
+    * fixed translation of weekdays
+
+# v1.0.16
+## 12/25/2016
+1. [](#new)
+	* Added the ability to add date exceptions to events
+1. [](#improved)
+	* More intuitive calendar navigation
+
 # v1.0.15
 ## 10/02/2016
 

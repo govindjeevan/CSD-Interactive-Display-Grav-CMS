@@ -1,8 +1,5 @@
 # Events Plugin for Grav CMS
 
-[![Join the chat at https://gitter.im/grav-plugin-events/Lobby](https://badges.gitter.im/grav-plugin-events/Lobby.svg)](https://gitter.im/grav-plugin-events/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/kalebheitzman/grav-plugin-events.svg?branch=develop)](https://travis-ci.org/kalebheitzman/grav-plugin-events)
-
 This is an events plugin for [Grav CMS](http://getgrav.org)  1.1.5+.
 
 Create single and repeating events using `event:` frontmatter on any page you choose. The Events Plugin provides templates for calendar, events, and event views and supports creating events via the [Admin plugin.](https://github.com/getgrav/grav-plugin-admin)
@@ -36,6 +33,10 @@ Currently, the following taxonomies are created and available for building page 
 
 `'@taxonomy.type'` with param `'event'`.
 
+### iCalendar file support
+
+**Events** supports the import of events from one or more *.ics file(s). On saving the settings in the admin panel it will create a user defined folder for the events. This folder will contain a subfolder for each year with a subfolder and an event.md file for each event.
+
 ### How it works
 
 **Events** parses all of your markdown files for `event:` frontmatter and then automagically assigns taxonomies to your events based on whether they repeat through the week and through what intervals. This lets you build powerful collections based on the `event_freq:` and `event_repeat:` intervals. This lets you create custom displays. For example, if you want to build a list of all events that happen on Mondays you can filter on `'@taxonomy.event_repeat':['M']` or pull out your Weekly events by filtering on `'@taxonomy.event_freq':'weekly'`.
@@ -55,7 +56,7 @@ The `event.start:` and `event.end:` dates can be specified using `m/d/y` or `d-m
 This plugin supports creating repeating events using `event.repeat:`,
 `event.freq:`, and `event.until:`.
 
-`event.repeat:` specifies what days you would like for your event to repeat horizontally across a calendar. This can be for Monday through Sunday as specified by `MTWRFSU`. (**M**onday, **T**uesday, **W**ednesday, Th**U**rsday, **F**riday, **S**aturday, S**U**nday).
+`event.repeat:` specifies what days you would like for your event to repeat horizontally across a calendar. This can be for Monday through Sunday as specified by `MTWRFSU`. (**M**onday, **T**uesday, **W**ednesday, Thu**R**sday, **F**riday, **S**aturday, S**U**nday).
 
 `event.freq:` can be set to `daily, weekly, monthly, or yearly.`
 
@@ -145,3 +146,8 @@ A collection of weekend events with a _dateRange_ using the [DateTools Plugin.](
 ### DateTools Plugin
 
 Be sure to checkout the [DateTools Plugin](https://github.com/kalebheitzman/grav-plugin-datetools). This plugin uses DateTools to filter date ranges on collection in twig templates.
+
+### Todo/Issues
+
+- properly implement recurring events. Currently the ics-parser has an issue with recurring events ([#196](https://github.com/u01jmg3/ics-parser/issues/196) & [#231](https://github.com/u01jmg3/ics-parser/issues/231)). As a workaround a folder for each occurence of an event is created and the folders are prefixed with month and day.
+- the last recurring event may be missing due to an issue in the ics-parser ([#238](https://github.com/u01jmg3/ics-parser/issues/238)). To work around this the according event in the ics file should last one recurrence longer.

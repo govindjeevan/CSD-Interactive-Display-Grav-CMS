@@ -1,20 +1,20 @@
-last_checked: 1556343381
+last_checked: 1571407097
 data:
   feed:
+    -
+      id: 24
+      date: '2019-10-03 11:27'
+      message: '🙏 Thanks to our amazing community, Grav was voted <b>Best Flat File CMS</b> in the 2019 CMS Critics'' Awards!'
+      link: 'https://www.cmscritic.com/awards/'
+      type: info
+      location:
+        - feed
     -
       id: 23
       date: '2018-11-15 15:50'
       message: 'Grav community chat has moved from Slack to <span class=''fa fa-comments''></span> Discord'
       link: 'https://chat.getgrav.org'
       type: info
-      location:
-        - feed
-    -
-      id: 22
-      date: '2018-10-08 11:27'
-      message: '☑️ We''re in the final 3! Please vote for Grav as <b>Best Flat File CMS</b> in the 2018 CMS Critics'' Awards'
-      link: 'https://www.cmscritic.com/awards/'
-      type: note
       location:
         - feed
     -
@@ -31,14 +31,6 @@ data:
       message: '🚨 Grav 1.5.2 &amp; Admin 1.8.10 released'
       link: 'https://getgrav.org/blog/new-xss-protection'
       type: info
-      location:
-        - feed
-    -
-      id: 19
-      date: '2018-08-22 10:50'
-      message: '❤️ Please nominate Grav for the 2018 CMS Critics'' Awards'
-      link: 'https://www.cmscritic.com/awards/'
-      type: note
       location:
         - feed
     -

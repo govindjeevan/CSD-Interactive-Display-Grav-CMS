@@ -88,6 +88,13 @@ class Pages
      */
     protected $ignore_hidden;
 
+    /** @var string */
+    protected $check_method;
+
+    protected $pages_cache_id;
+
+    protected $initialized = false;
+
     /**
      * @var Types
      */
@@ -97,8 +104,6 @@ class Pages
      * @var string
      */
     static protected $home_route;
-
-    protected $pages_cache_id;
 
     /**
      * Constructor
@@ -226,11 +231,20 @@ class Pages
         return $this->baseUrl($lang, $absolute) . Uri::filterPath($route);
     }
 
+    public function setCheckMethod($method)
+    {
+        $this->check_method = strtolower($method);
+    }
+
     /**
      * Class initialization. Must be called before using this class.
      */
     public function init()
     {
+        if ($this->initialized) {
+            return;
+        }
+
         $config = $this->grav['config'];
         $this->ignore_files = $config->get('system.pages.ignore_files');
         $this->ignore_folders = $config->get('system.pages.ignore_folders');
@@ -239,6 +253,10 @@ class Pages
         $this->instances = [];
         $this->children = [];
         $this->routes = [];
+
+        if (!$this->check_method) {
+            $this->setCheckMethod($config->get('system.cache.check.method', 'file'));
+        }
 
         $this->buildPages();
     }
@@ -947,7 +965,7 @@ class Pages
             $taxonomy = $this->grav['taxonomy'];
 
             // how should we check for last modified? Default is by file
-            switch (strtolower($config->get('system.cache.check.method', 'file'))) {
+            switch ($this->check_method) {
                 case 'none':
                 case 'off':
                     $hash = 0;

@@ -154,16 +154,11 @@ class Route
      * If the parameter exists in both, return Grav parameter.
      *
      * @param string $param
-     * @return string|null
+     * @return string|array|null
      */
     public function getParam($param)
     {
-        $value = $this->getGravParam($param);
-        if ($value === null) {
-            $value = $this->getQueryParam($param);
-        }
-
-        return $value;
+        return $this->getGravParam($param) ?? $this->getQueryParam($param);
     }
 
     /**
@@ -177,7 +172,7 @@ class Route
 
     /**
      * @param string $param
-     * @return string|null
+     * @return string|array|null
      */
     public function getQueryParam($param)
     {
@@ -193,6 +188,7 @@ class Route
     public function withRoute($route)
     {
         $this->route = $route;
+
         return $this;
     }
 
@@ -205,6 +201,7 @@ class Route
     public function withRoot($root)
     {
         $this->root = $root;
+
         return $this;
     }
 
@@ -250,6 +247,25 @@ class Route
         return $this->withParam('queryParams', $param, $value);
     }
 
+    public function withoutParams()
+    {
+        return $this->withoutGravParams()->withoutQueryParams();
+    }
+
+    public function withoutGravParams()
+    {
+        $this->gravParams = [];
+
+        return $this;
+    }
+
+    public function withoutQueryParams()
+    {
+        $this->queryParams = [];
+
+        return $this;
+    }
+
     /**
      * @return \Grav\Framework\Uri\Uri
      */
@@ -292,20 +308,28 @@ class Route
      */
     protected function withParam($type, $param, $value)
     {
-        $oldValue = $this->{$type}[$param] ?? null;
+        $values = $this->{$type} ?? [];
+        $oldValue = $values[$param] ?? null;
 
         if ($oldValue === $value) {
             return $this;
         }
 
-        $new = clone $this;
+        $new = $this->copy();
         if ($value === null) {
-            unset($new->{$type}[$param]);
+            unset($values[$param]);
         } else {
-            $new->{$type}[$param] = $value;
+            $values[$param] = $value;
         }
 
+        $new->{$type} = $values;
+
         return $new;
+    }
+
+    protected function copy()
+    {
+        return clone $this;
     }
 
     /**
@@ -350,8 +374,8 @@ class Route
             $this->language = $gravParts['language'];
             $this->route = $gravParts['route'];
             $this->extension = $gravParts['extension'] ?? '';
-            $this->gravParams = $gravParts['params'];
-            $this->queryParams = $parts['query_params'];
+            $this->gravParams = $gravParts['params'] ?: [];
+            $this->queryParams = $parts['query_params'] ?: [];
 
         } else {
             $this->root = RouteFactory::getRoot();

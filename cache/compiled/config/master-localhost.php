@@ -1,158 +1,244 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledConfig',
-    'timestamp' => 1556344335,
-    'checksum' => '251c1f851344a3a623238b959878e61a',
+    'timestamp' => 1571407485,
+    'checksum' => 'f81a90f0e31001260e7b5c53c42dfe67',
     'files' => [
         'user/config' => [
             'backups' => [
                 'file' => 'user/config/backups.yaml',
-                'modified' => 1555125247
+                'modified' => 1566154915
             ],
             'media' => [
                 'file' => 'user/config/media.yaml',
-                'modified' => 1555125247
+                'modified' => 1566154915
             ],
             'plugins/email' => [
                 'file' => 'user/config/plugins/email.yaml',
-                'modified' => 1556342439
+                'modified' => 1566154915
             ],
             'plugins/events' => [
                 'file' => 'user/config/plugins/events.yaml',
-                'modified' => 1556181963
+                'modified' => 1566154915
             ],
             'plugins/instagram-feed' => [
                 'file' => 'user/config/plugins/instagram-feed.yaml',
-                'modified' => 1556344335
+                'modified' => 1566156687
+            ],
+            'plugins/lazysizes' => [
+                'file' => 'user/config/plugins/lazysizes.yaml',
+                'modified' => 1571407485
             ],
             'scheduler' => [
                 'file' => 'user/config/scheduler.yaml',
-                'modified' => 1555125247
+                'modified' => 1566154915
             ],
             'security' => [
                 'file' => 'user/config/security.yaml',
-                'modified' => 1555125247
+                'modified' => 1566154915
             ],
             'site' => [
                 'file' => 'user/config/site.yaml',
-                'modified' => 1555120278
+                'modified' => 1566156433
             ],
             'streams' => [
                 'file' => 'user/config/streams.yaml',
-                'modified' => 1555125247
+                'modified' => 1566154915
             ],
             'system' => [
                 'file' => 'user/config/system.yaml',
-                'modified' => 1556179866
+                'modified' => 1571407113
             ],
             'themes/cardstack' => [
                 'file' => 'user/config/themes/cardstack.yaml',
-                'modified' => 1555128162
+                'modified' => 1566154915
             ],
             'themes/editorial' => [
                 'file' => 'user/config/themes/editorial.yaml',
-                'modified' => 1555126330
+                'modified' => 1566154915
             ],
             'themes/masonry' => [
                 'file' => 'user/config/themes/masonry.yaml',
-                'modified' => 1555128460
+                'modified' => 1566154915
             ],
             'themes/portfolio' => [
                 'file' => 'user/config/themes/portfolio.yaml',
-                'modified' => 1555126529
+                'modified' => 1566154915
             ],
             'themes/quark' => [
                 'file' => 'user/config/themes/quark.yaml',
-                'modified' => 1555127938
+                'modified' => 1566154915
             ]
         ],
         'system/config' => [
             'backups' => [
                 'file' => 'system/config/backups.yaml',
-                'modified' => 1556179858
+                'modified' => 1571407112
             ],
             'media' => [
                 'file' => 'system/config/media.yaml',
-                'modified' => 1556179858
+                'modified' => 1571407112
             ],
             'security' => [
                 'file' => 'system/config/security.yaml',
-                'modified' => 1556179858
+                'modified' => 1571407112
             ],
             'site' => [
                 'file' => 'system/config/site.yaml',
-                'modified' => 1556179858
+                'modified' => 1571407112
             ],
             'streams' => [
                 'file' => 'system/config/streams.yaml',
-                'modified' => 1556179858
+                'modified' => 1571407112
             ],
             'system' => [
                 'file' => 'system/config/system.yaml',
-                'modified' => 1556179858
+                'modified' => 1571407112
             ]
         ],
         'user/plugins' => [
-            'plugins/admin' => [
-                'file' => 'user/plugins/admin/admin.yaml',
-                'modified' => 1556180271
-            ],
-            'plugins/auto-date' => [
-                'file' => 'user/plugins/auto-date/auto-date.yaml',
-                'modified' => 1555126264
-            ],
-            'plugins/datetools' => [
-                'file' => 'user/plugins/datetools/datetools.yaml',
-                'modified' => 1556180306
-            ],
-            'plugins/email' => [
-                'file' => 'user/plugins/email/email.yaml',
-                'modified' => 1556180257
-            ],
-            'plugins/error' => [
-                'file' => 'user/plugins/error/error.yaml',
-                'modified' => 1555120278
-            ],
-            'plugins/events' => [
-                'file' => 'user/plugins/events/events.yaml',
-                'modified' => 1556180313
-            ],
-            'plugins/form' => [
-                'file' => 'user/plugins/form/form.yaml',
-                'modified' => 1556180246
-            ],
             'plugins/icalendar' => [
                 'file' => 'user/plugins/icalendar/icalendar.yaml',
-                'modified' => 1556180607
-            ],
-            'plugins/instagram-feed' => [
-                'file' => 'user/plugins/instagram-feed/instagram-feed.yaml',
-                'modified' => 1556342722
+                'modified' => 1566156707
             ],
             'plugins/login' => [
                 'file' => 'user/plugins/login/login.yaml',
-                'modified' => 1556180251
+                'modified' => 1571407279
             ],
             'plugins/markdown-notices' => [
                 'file' => 'user/plugins/markdown-notices/markdown-notices.yaml',
-                'modified' => 1555120278
+                'modified' => 1571407282
             ],
-            'plugins/problems' => [
-                'file' => 'user/plugins/problems/problems.yaml',
-                'modified' => 1555120278
+            'plugins/auto-date' => [
+                'file' => 'user/plugins/auto-date/auto-date.yaml',
+                'modified' => 1566154915
+            ],
+            'plugins/admin' => [
+                'file' => 'user/plugins/admin/admin.yaml',
+                'modified' => 1571407253
             ],
             'plugins/simplesearch' => [
                 'file' => 'user/plugins/simplesearch/simplesearch.yaml',
-                'modified' => 1555126268
+                'modified' => 1566154915
             ],
             'plugins/unitegallery' => [
                 'file' => 'user/plugins/unitegallery/unitegallery.yaml',
-                'modified' => 1556339453
+                'modified' => 1566154915
+            ],
+            'plugins/events' => [
+                'file' => 'user/plugins/events/events.yaml',
+                'modified' => 1571407257
+            ],
+            'plugins/form' => [
+                'file' => 'user/plugins/form/form.yaml',
+                'modified' => 1571407260
+            ],
+            'plugins/problems' => [
+                'file' => 'user/plugins/problems/problems.yaml',
+                'modified' => 1566156732
+            ],
+            'plugins/datetools' => [
+                'file' => 'user/plugins/datetools/datetools.yaml',
+                'modified' => 1566154915
+            ],
+            'plugins/email' => [
+                'file' => 'user/plugins/email/email.yaml',
+                'modified' => 1566156711
+            ],
+            'plugins/instagram-feed' => [
+                'file' => 'user/plugins/instagram-feed/instagram-feed.yaml',
+                'modified' => 1566154915
+            ],
+            'plugins/error' => [
+                'file' => 'user/plugins/error/error.yaml',
+                'modified' => 1566156715
+            ],
+            'plugins/lazysizes' => [
+                'file' => 'user/plugins/lazysizes/lazysizes.yaml',
+                'modified' => 1571407457
             ]
         ]
     ],
     'data' => [
         'plugins' => [
+            'icalendar' => [
+                'enabled' => true,
+                'icsfile' => 'example.ics',
+                'numevents' => 2
+            ],
+            'login' => [
+                'enabled' => true,
+                'built_in_css' => true,
+                'route' => NULL,
+                'redirect_to_login' => true,
+                'redirect_after_login' => NULL,
+                'redirect_after_logout' => '/',
+                'route_activate' => '/activate_user',
+                'route_forgot' => '/forgot_password',
+                'route_reset' => '/reset_password',
+                'route_profile' => '/user_profile',
+                'route_register' => '/user_register',
+                'route_unauthorized' => '/user_unauthorized',
+                'twofa_enabled' => false,
+                'dynamic_page_visibility' => false,
+                'parent_acl' => false,
+                'protect_protected_page_media' => false,
+                'rememberme' => [
+                    'enabled' => true,
+                    'timeout' => 604800,
+                    'name' => 'grav-rememberme'
+                ],
+                'max_pw_resets_count' => 2,
+                'max_pw_resets_interval' => 60,
+                'max_login_count' => 5,
+                'max_login_interval' => 10,
+                'ipv6_subnet_size' => 64,
+                'user_registration' => [
+                    'enabled' => false,
+                    'fields' => [
+                        0 => 'username',
+                        1 => 'password',
+                        2 => 'email',
+                        3 => 'fullname',
+                        4 => 'title',
+                        5 => 'level',
+                        6 => 'twofa_enabled'
+                    ],
+                    'default_values' => [
+                        'level' => 'Newbie'
+                    ],
+                    'access' => [
+                        'site' => [
+                            'login' => 'true'
+                        ]
+                    ],
+                    'redirect_after_registration' => '',
+                    'redirect_after_activation' => '',
+                    'options' => [
+                        'validate_password1_and_password2' => true,
+                        'set_user_disabled' => false,
+                        'login_after_registration' => false,
+                        'send_activation_email' => false,
+                        'manually_enable' => false,
+                        'send_notification_email' => false,
+                        'send_welcome_email' => false
+                    ]
+                ]
+            ],
+            'markdown-notices' => [
+                'enabled' => true,
+                'built_in_css' => true,
+                'base_classes' => 'notices',
+                'level_classes' => [
+                    0 => 'yellow',
+                    1 => 'red',
+                    2 => 'blue',
+                    3 => 'green'
+                ]
+            ],
+            'auto-date' => [
+                'enabled' => true
+            ],
             'admin' => [
                 'enabled' => true,
                 'route' => '/admin',
@@ -217,51 +303,32 @@ return [
                     ]
                 ]
             ],
-            'auto-date' => [
-                'enabled' => true
-            ],
-            'datetools' => [
-                'dateFormat' => [
-                    'default' => 'm/d/Y g:ia',
-                    'long' => 'l, F j, g:ia',
-                    'medium' => 'F j, g:ia',
-                    'short' => 'm/d/y'
-                ],
-                'enabled' => true
-            ],
-            'email' => [
+            'simplesearch' => [
                 'enabled' => true,
-                'from' => '10bsaurabh@gmail.com',
-                'from_name' => NULL,
-                'to' => 'sdewangan021@gmail.com',
-                'to_name' => NULL,
-                'queue' => [
-                    'enabled' => false,
-                    'flush_frequency' => '* * * * *',
-                    'flush_msg_limit' => 10,
-                    'flush_time_limit' => 100
+                'built_in_css' => true,
+                'built_in_js' => true,
+                'display_button' => false,
+                'min_query_length' => 3,
+                'route' => '/search',
+                'search_content' => 'rendered',
+                'template' => 'simplesearch_results',
+                'filters' => [
+                    'category' => NULL
                 ],
-                'mailer' => [
-                    'engine' => 'none',
-                    'smtp' => [
-                        'server' => 'google.com',
-                        'port' => 25,
-                        'encryption' => 'none',
-                        'user' => 'csdnitk',
-                        'password' => 'csdNITK1'
-                    ],
-                    'sendmail' => [
-                        'bin' => '/usr/sbin/sendmail -bs'
-                    ]
-                ],
-                'content_type' => 'text/plain',
-                'debug' => false
-            ],
-            'error' => [
-                'enabled' => true,
-                'routes' => [
-                    404 => '/error'
+                'filter_combinator' => 'and',
+                'ignore_accented_characters' => false,
+                'order' => [
+                    'by' => 'date',
+                    'dir' => 'desc'
                 ]
+            ],
+            'unitegallery' => [
+                'enabled' => true,
+                'assets_in_meta' => true,
+                'gallery_theme' => 'tiles',
+                'gallery_div_id' => 'unite-gallery',
+                'thumb_width' => 600,
+                'thumb_height' => 600
             ],
             'events' => [
                 'enabled' => false,
@@ -305,116 +372,92 @@ return [
                     'secret_key' => NULL
                 ]
             ],
-            'icalendar' => [
+            'problems' => [
                 'enabled' => true,
-                'icsfile' => 'example.ics',
-                'numevents' => 2
+                'built_in_css' => true
+            ],
+            'datetools' => [
+                'dateFormat' => [
+                    'default' => 'm/d/Y g:ia',
+                    'long' => 'l, F j, g:ia',
+                    'medium' => 'F j, g:ia',
+                    'short' => 'm/d/y'
+                ],
+                'enabled' => true
+            ],
+            'email' => [
+                'enabled' => true,
+                'from' => '10bsaurabh@gmail.com',
+                'from_name' => NULL,
+                'to' => 'sdewangan021@gmail.com',
+                'to_name' => NULL,
+                'queue' => [
+                    'enabled' => false,
+                    'flush_frequency' => '* * * * *',
+                    'flush_msg_limit' => 10,
+                    'flush_time_limit' => 100
+                ],
+                'mailer' => [
+                    'engine' => 'none',
+                    'smtp' => [
+                        'server' => 'google.com',
+                        'port' => 25,
+                        'encryption' => 'none',
+                        'user' => 'csdnitk',
+                        'password' => 'csdNITK1'
+                    ],
+                    'sendmail' => [
+                        'bin' => '/usr/sbin/sendmail -bs'
+                    ]
+                ],
+                'content_type' => 'text/plain',
+                'debug' => false
             ],
             'instagram-feed' => [
-                'enabled' => true,
+                'enabled' => false,
                 'route' => '/',
                 'instagram_feed' => [
                     'count' => '10',
                     'username' => 'csd_nitk'
                 ]
             ],
-            'login' => [
+            'error' => [
                 'enabled' => true,
-                'built_in_css' => true,
-                'route' => NULL,
-                'redirect_to_login' => true,
-                'redirect_after_login' => NULL,
-                'redirect_after_logout' => '/',
-                'route_activate' => '/activate_user',
-                'route_forgot' => '/forgot_password',
-                'route_reset' => '/reset_password',
-                'route_profile' => '/user_profile',
-                'route_register' => '/user_register',
-                'route_unauthorized' => '/user_unauthorized',
-                'twofa_enabled' => false,
-                'dynamic_page_visibility' => false,
-                'parent_acl' => false,
-                'protect_protected_page_media' => false,
-                'rememberme' => [
-                    'enabled' => true,
-                    'timeout' => 604800,
-                    'name' => 'grav-rememberme'
+                'routes' => [
+                    404 => '/error'
+                ]
+            ],
+            'lazysizes' => [
+                'enabled' => true,
+                'include_js' => true,
+                'fallback' => true,
+                'fallback_settings' => [
+                    0 => [
+                        'key' => 'resize',
+                        'value' => '400'
+                    ],
+                    1 => [
+                        'key' => 'gaussianBlur',
+                        'value' => '3'
+                    ]
                 ],
-                'max_pw_resets_count' => 2,
-                'max_pw_resets_interval' => 60,
-                'max_login_count' => 5,
-                'max_login_interval' => 10,
-                'user_registration' => [
-                    'enabled' => false,
-                    'fields' => [
-                        0 => 'username',
-                        1 => 'password',
-                        2 => 'email',
-                        3 => 'fullname',
-                        4 => 'title',
-                        5 => 'level',
-                        6 => 'twofa_enabled'
+                'widths' => [
+                    0 => [
+                        'width' => 400
                     ],
-                    'default_values' => [
-                        'level' => 'Newbie'
+                    1 => [
+                        'width' => 800
                     ],
-                    'access' => [
-                        'site' => [
-                            'login' => 'true'
-                        ]
+                    2 => [
+                        'width' => 1200
                     ],
-                    'redirect_after_registration' => '',
-                    'options' => [
-                        'validate_password1_and_password2' => true,
-                        'set_user_disabled' => false,
-                        'login_after_registration' => false,
-                        'send_activation_email' => false,
-                        'manually_enable' => false,
-                        'send_notification_email' => false,
-                        'send_welcome_email' => false
+                    3 => [
+                        'width' => 1600
+                    ],
+                    4 => [
+                        'width' => 2000
                     ]
                 ]
-            ],
-            'markdown-notices' => [
-                'enabled' => true,
-                'built_in_css' => true,
-                'level_classes' => [
-                    0 => 'yellow',
-                    1 => 'red',
-                    2 => 'blue',
-                    3 => 'green'
-                ]
-            ],
-            'problems' => [
-                'enabled' => true,
-                'built_in_css' => true
-            ],
-            'simplesearch' => [
-                'enabled' => true,
-                'built_in_css' => true,
-                'built_in_js' => true,
-                'display_button' => false,
-                'min_query_length' => 3,
-                'route' => '/search',
-                'search_content' => 'rendered',
-                'template' => 'simplesearch_results',
-                'filters' => [
-                    'category' => NULL
-                ],
-                'filter_combinator' => 'and',
-                'ignore_accented_characters' => false,
-                'order' => [
-                    'by' => 'date',
-                    'dir' => 'desc'
-                ]
-            ],
-            'unitegallery' => [
-                'enabled' => true,
-                'assets_in_meta' => true,
-                'gallery_theme' => 'tiles',
-                'gallery_div_id' => 'unite-gallery',
-                'thumb_width' => 600,
-                'thumb_height' => 600
             ]
         ],
         'backups' => [
@@ -759,7 +802,7 @@ node_modules'
             'salt' => 'SsrmWhp9KHMqcj'
         ],
         'site' => [
-            'title' => 'Grav',
+            'title' => 'CSD',
             'default_lang' => 'en',
             'author' => [
                 'name' => 'Joe Bloggs',

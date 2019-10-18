@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => 'plugins://datetools/datetools.yaml',
-    'modified' => 1556180306,
+    'modified' => 1566154915,
     'data' => [
         'dateFormat' => [
             'default' => 'm/d/Y g:ia',

@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => 'themes://portfolio/portfolio.yaml',
-    'modified' => 1555126519,
+    'modified' => 1566154915,
     'data' => [
         'enabled' => false,
         'dropdown' => [

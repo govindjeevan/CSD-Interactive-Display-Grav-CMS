@@ -2,7 +2,7 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => 'plugins://login/login.yaml',
-    'modified' => 1556180251,
+    'modified' => 1571407279,
     'data' => [
         'enabled' => true,
         'built_in_css' => true,
@@ -29,6 +29,7 @@ return [
         'max_pw_resets_interval' => 60,
         'max_login_count' => 5,
         'max_login_interval' => 10,
+        'ipv6_subnet_size' => 64,
         'user_registration' => [
             'enabled' => false,
             'fields' => [
@@ -49,6 +50,7 @@ return [
                 ]
             ],
             'redirect_after_registration' => '',
+            'redirect_after_activation' => '',
             'options' => [
                 'validate_password1_and_password2' => true,
                 'set_user_disabled' => false,

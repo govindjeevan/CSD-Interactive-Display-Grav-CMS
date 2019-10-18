@@ -1,3 +1,70 @@
+# v1.9.10
+## 09/19/2019
+
+1. [](#bugfix)
+    * Fixed `Badly encoded JSON data` warning when uploading files [grav#2663](https://github.com/getgrav/grav/issues/2663)
+
+# v1.9.9
+## 08/21/2019
+
+1. [](#bugfix)
+    * Fixed regression with files in admin not allowing types other than images [#1737](https://github.com/getgrav/grav-plugin-admin/issues/1737)
+    * Fixed preview link for non-images files in **Page Media** [#1727](https://github.com/getgrav/grav-plugin-admin/issues/1727)
+
+# v1.9.8
+## 08/11/2019
+
+1. [](#improved)
+    * Better support for `array` field into `list` field
+    * Attach `_list_index` to fields within list items so that the index/key is available
+1. [](#bugfix)
+    * Fixed 2FA regenerate for Flex Users
+    * Added missing closing </li> in language loops
+    * Fixed issue with nested `list` fields both utilizing the custom `key` functionality
+    * Fixed issue with `array` field nested in `list` that were losing their index order when the list reordered
+    * Fixed file form field failing resolution checks in certain circumstances
+    * Fixed issue with deleting files in config based YAML files
+    
+# v1.9.7
+## 06/21/2019
+
+1. [](#bugfix)
+    * Fixed issue with charts in dashboard where label would cut off [#1700](https://github.com/getgrav/grav-plugin-admin/issues/1700)
+    * Resetting a user's password clears the user's site access [grav#2528](https://github.com/getgrav/grav/issues/2528) 
+    * Fixed issue with permissions toggle [#1702](https://github.com/getgrav/grav-plugin-admin/issues/1702)
+
+# v1.9.6
+## 06/15/2019
+
+1. [](#bugfix)
+    * Fixed regression issue with `parents_levels` defaulting to `2`
+
+# v1.9.5
+## 06/14/2019
+
+1. [](#improved)
+    * Display error message if GPM class fails to initialize
+    * Better append/prepend logic that was breaking some layouts
+    * Default `backups` to an array if used outside of tools
+    * PSR 7 fixes
+
+# v1.9.4
+## 05/09/2019
+
+1. [](#new)
+    * Added support for `field.copy-to-clipboard` on Text input fields
+1. [](#improved)
+    * Only invalidate cache on creating new/deleting page to speed up the recovery
+    * Updated language strings from https://crowdin.com/project/grav-admin
+    * Use `plugins://` stream rather than `user://plugins` [#1674](https://github.com/getgrav/grav-plugin-admin/issues/1674)
+1. [](#bugfix)
+    * Fixed admin cache to detect moved and deleted pages
+    * Fixed avatar URLs with `?` in them being broken
+    * Fixed issue saving page with language that was not exactly `2` or `5` chars long [#1667](https://github.com/getgrav/grav-plugin-admin/issues/1667)
+    * Fixed admin not detecting any existing users when Flex users are being used
+    * Fixed issue with append/prepend not respecting `size:`
+    * Fixed issue with `unset` on file fields [#1427](https://github.com/getgrav/grav/issues/1427), [#1670](https://github.com/getgrav/grav/issues/1670), [#1982](https://github.com/getgrav/grav/issues/1982)
+
 # v1.9.3
 ## 04/22/2019
 
@@ -5,7 +72,7 @@
     * Added a new **YAML Linter** report to the `Tools - Reports` section
 1. [](#improved)
     * Updated package.json scripts to properly use gulp compiler
-
+    
 # v1.9.2
 ## 04/15/2019
 

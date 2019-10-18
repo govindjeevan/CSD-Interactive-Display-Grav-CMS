@@ -115,17 +115,21 @@ class AdminController extends AdminBaseController
             $secret = $twoFa->createSecret();
             $image = $twoFa->getQrImageData($user->username, $secret);
 
-            // Save secret into the user file.
-            $file = $user->file();
-            if ($file->exists()) {
-                $content = (array)$file->content();
-                $content['twofa_secret'] = $secret;
-                $file->save($content);
-                $file->free();
-            }
-
-            // Change secret in the session.
             $user->set('twofa_secret', $secret);
+
+            // TODO: data user can also use save, but please test it before removing this code.
+            if ($user instanceof \Grav\Common\User\DataUser\User) {
+                // Save secret into the user file.
+                $file = $user->file();
+                if ($file->exists()) {
+                    $content = (array)$file->content();
+                    $content['twofa_secret'] = $secret;
+                    $file->save($content);
+                    $file->free();
+                }
+            } else {
+                $user->save();
+            }
 
             $this->admin->json_response = ['status' => 'success', 'image' => $image, 'secret' => preg_replace('|(\w{4})|', '\\1 ', $secret)];
         } catch (\Exception $e) {
@@ -168,9 +172,6 @@ class AdminController extends AdminBaseController
                     $user->undef('hashed_password');
                     $user->undef('reset');
                     $user->set('password',  $password);
-
-                    $user->validate();
-                    $user->filter();
                     $user->save();
 
                     $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.RESET_PASSWORD_RESET'), 'info');
@@ -496,7 +497,7 @@ class AdminController extends AdminBaseController
         $new_path         = $path . '/' . $orderOfNewFolder . '.' . $data['folder'];
 
         Folder::create($new_path);
-        Cache::clearCache('standard');
+        Cache::clearCache('invalidate');
 
         $this->grav->fireEvent('onAdminAfterSaveAs', new Event(['path' => $new_path]));
 
@@ -2203,7 +2204,7 @@ class AdminController extends AdminBaseController
 
             $this->grav->fireEvent('onAdminAfterDelete', new Event(['page' => $page]));
 
-            Cache::clearCache('standard');
+            Cache::clearCache('invalidate');
 
             // Set redirect to pages list.
             $redirect = 'pages';
@@ -2375,18 +2376,19 @@ class AdminController extends AdminBaseController
      */
     public function determineFilenameIncludingLanguage($current_filename, $language)
     {
-        $filename = substr($current_filename, 0, -strlen('.md'));
+        $ext = '.md';
+        $filename = substr($current_filename, 0, -strlen($ext));
+        $languages_enabled = $this->grav['config']->get('system.languages.supported', []);
 
-        if (substr($filename, -3, 1) === '.') {
-            $filename = str_replace(substr($filename, -2), $language, $filename);
-        } elseif (substr($filename, -6, 1) === '.') {
-            $filename = str_replace(substr($filename, -5), $language, $filename);
-        } else {
-            $filename .= '.' . $language;
+        $parts = explode('.', trim($filename, '.'));
+        $lang = array_pop($parts);
+
+        if ($lang === $language) {
+            return $filename . $ext;
+        } elseif (in_array($lang, $languages_enabled)) {
+            $filename = implode('.', $parts);
         }
 
-        return $filename . '.md';
+        return $filename . '.' . $language . $ext;
     }
-
-
 }

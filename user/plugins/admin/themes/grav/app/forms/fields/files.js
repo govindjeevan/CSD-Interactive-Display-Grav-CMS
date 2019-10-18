@@ -77,27 +77,41 @@ const ACCEPT_FUNC = function(file, done, settings) {
     const resolution = settings.resolution;
     if (!resolution) return done();
 
-    setTimeout(() => {
-        let error = '';
-        if (resolution.min) {
-            Object.keys(resolution.min).forEach((attr) => {
-                if (resolution.min[attr] && file[attr] < resolution.min[attr]) {
-                    error += translations.PLUGIN_FORM.RESOLUTION_MIN.replace(/{{attr}}/g, attr).replace(/{{min}}/g, resolution.min[attr]);
+    const reader = new FileReader();
+    let error = '';
+    const hasMin = (resolution.min && (resolution.min.width || resolution.min.height));
+    const hasMax = (resolution.max && (resolution.max.width || resolution.max.height));
+    if (hasMin || (!(settings.resizeWidth || settings.resizeHeight) && hasMax)) {
+        reader.onload = function(event) {
+            const image = new Image();
+            image.src = event.target.result;
+            image.onload = function() {
+                if (resolution.min) {
+                    Object.keys(resolution.min).forEach((attr) => {
+                        if (resolution.min[attr] && this[attr] < resolution.min[attr]) {
+                            error += translations.PLUGIN_FORM.RESOLUTION_MIN.replace(/{{attr}}/g, attr).replace(/{{min}}/g, resolution.min[attr]);
+                        }
+                    });
                 }
-            });
-        }
 
-        if (!(settings.resizeWidth || settings.resizeHeight)) {
-            if (resolution.max) {
-                Object.keys(resolution.max).forEach((attr) => {
-                    if (resolution.max[attr] && file[attr] > resolution.max[attr]) {
-                        error += translations.PLUGIN_FORM.RESOLUTION_MAX.replace(/{{attr}}/g, attr).replace(/{{max}}/g, resolution.max[attr]);
+                if (!(settings.resizeWidth || settings.resizeHeight)) {
+                    if (resolution.max) {
+                        Object.keys(resolution.max).forEach((attr) => {
+                            if (resolution.max[attr] && this[attr] > resolution.max[attr]) {
+                                error += translations.PLUGIN_FORM.RESOLUTION_MAX.replace(/{{attr}}/g, attr).replace(/{{max}}/g, resolution.max[attr]);
+                            }
+                        });
                     }
-                });
-            }
-        }
+                }
+
+                return error ? done(error) : done();
+            };
+        };
+
+        reader.readAsDataURL(file);
+    } else {
         return error ? done(error) : done();
-    }, 50);
+    }
 };
 
 export default class FilesField {
@@ -135,7 +149,6 @@ export default class FilesField {
             target.attr('href', `${config.base_url_simple}/${URL}`);
         });
 
-        $(this.dropzone.element).find('[data-dz-unset]').hide();
     }
 
     initDropzone() {
@@ -166,7 +179,6 @@ export default class FilesField {
             file.remove();
         });
 
-        $(dropzone.element).find('[data-dz-unset]').hide();
     }
 
     getURI() {
@@ -203,8 +215,6 @@ export default class FilesField {
             const value = input.val();
             input.val(value + ' ');
         }
-
-        $(file.previewElement).find('[data-dz-unset]').css('display', null);
 
         return this.handleError({
             file,
